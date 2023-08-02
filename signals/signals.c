@@ -6,7 +6,7 @@
 /*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:41:03 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/08/02 12:53:10 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/08/02 16:17:52 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <signal.h>
 #include "minishell.h"
  
-
+//
 void ctrl_d(char *input_line)
 {
     if(input_line == NULL)
