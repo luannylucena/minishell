@@ -3,26 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:47:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/07/28 17:48:35 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/08/04 19:48:40 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int main(int argc, char **argv, char **envp)
 {
     char *input_line;
     signal(SIGQUIT, sigquit_handler);
     signal(SIGINT, sigint_handler);
-
+    (void)argc;
+    (void)argv;
+    (void)envp;
     while(1)
     {
         // Exibir o prompt e aguardar um comando usando readline
         input_line = readline("minishell > ");
 
+        parser(input_line);
         // Verificar se o usuário digitou CTRL+D
         ctrl_d(input_line);
         
