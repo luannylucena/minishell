@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:47:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/08/04 19:48:40 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/08/07 13:20:33 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int main(int argc, char **argv, char **envp)
         // Exibir o prompt e aguardar um comando usando readline
         input_line = readline("minishell > ");
 
-        parser(input_line);
+       parser(input_line);
         // Verificar se o usuário digitou CTRL+D
         ctrl_d(input_line);
         

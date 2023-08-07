@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 16:52:47 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/08/04 15:22:32 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/08/07 15:10:12 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <signal.h>
+#include "../libft_42/libft.h"
 
-void ctrl_d(char *input_line);
-void ft_exit(char *input_line);
-void sigquit_handler(int signal);
-void sigint_handler(int signal);
+void	ctrl_d(char *input_line);
+void	ft_exit(char *input_line);
+void	sigquit_handler(int signal);
+void	sigint_handler(int signal);
 void	parser(char *input_line);
+char	*check_space(char *line);
+int		count_space(char *line);
 
 #endif

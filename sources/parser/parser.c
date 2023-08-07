@@ -1,14 +1,9 @@
 #include "../../includes/minishell.h"
 
-char *check_space(char *line)
-{
-
-	int i;
-	char *test;
+int	count_space(char *line)
 	int space;
-	int j;
+	int i;
 
-	j = 0;
 	i = 0;
 	space = 0;
 	while (line[i])
@@ -16,48 +11,63 @@ char *check_space(char *line)
 		if ((line[i] == '<' && (line[i + 1] != ' ' || line[i - 1] != ' ' || line[i + 1] != '<' || line[i - 1] != '<')) ||
 				(line[i] == '>' && (line[i + 1] != ' ' || line[i - 1] != ' ' || line[i + 1] != '>' || line[i - 1] != '>')) ||
 					(line[i] == '|' && (line[i + 1] != ' ' || line[i - 1] != ' ')))
-			space += 1;
+			space += 2;
 		i++;
 	}
-	test = (char *)malloc((strlen(line) + space + 1) * (sizeof(char *)));
+	return(space);
+}
+
+char *check_space(char *line)
+{
+
+	int i;
+	char *cmd;
+	int space;
+	int j;
+
+	j = 0;
 	i = 0;
+	space = count_space(line);
+	cmd = (char *)ft_calloc((strlen(line) + space + 1), (sizeof(char)));
 	while (line[i])
 	{
 		if (line[i + 1] == '<' && line[i] != ' ' && line[i] != '<') 
 		{	
-			test[j++] = line[i++];
-			test[j++] = ' ';
+			cmd[j++] = line[i++];
+			cmd[j++] = ' ';
 		}
 		else if (line[i + 1] == '>' && line[i] != ' ' && line[i] != '>') 
 		{	
-			test[j++] = line[i++];
-			test[j++] = ' ';
+			cmd[j++] = line[i++];
+			cmd[j++] = ' ';
 		}
-		else if (line[i] == '<' && line[i + 1 ] != ' ' && line[i - 2] != '<') 
+		else if (line[i] == '<' && line[i + 1] != ' ' && line[i + 1] != '<' && line[i - 2] != '<') 
 		{	
-			test[j++] = line[i++];
-			test[j++] = ' ';
+			cmd[j++] = line[i++];
+			cmd[j++] = ' ';
 		}
-		else if (line[i] == '>' && line[i + 1] != ' ' && line[i - 2] != '>') 
+		else if (line[i] == '>' && line[i + 1] != ' ' && line[i + 1] != '<' && line[i - 2] != '>') 
 		{	
-			test[j++] = line[i++];
-			test[j++] = ' ';
-		}
-		else if (line[i + 1] == '|' && line[i] != ' ')
-		{
-			test[j++] = line[i++];
-			test[j++] = ' ';
+			cmd[j++] = line[i++];
+			cmd[j++] = ' ';
 		}
 		else if (line[i] == '|' && line[i + 1] != ' ')
 		{
-			test[j++] = line[i++];
-			test[j++] = ' ';
+			cmd[j++] = line[i++];
+			cmd[j] = ' ';
 		}
-		test[j++] = line[i++];
+		else if (line[i + 1] == '|' && line[i] != ' ')
+		{
+			cmd[j++] = line[i++];
+			cmd[j++] = ' ';
+			if (line[i] == '|' && line[i + 1] != ' ')
+				cmd[j + 1] = ' ';
+		}
+		cmd[j++] = line[i++];
 	}
 	printf("%i\n", space);
-	test[j] = '\0';
-	return(test);
+	cmd[j] = '\0';
+	return(cmd);
 }
 
 void	parser(char *input_line)
