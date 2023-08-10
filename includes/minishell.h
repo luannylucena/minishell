@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:03:16 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/08/10 16:32:44 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/08/10 16:54:28 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>

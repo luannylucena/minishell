@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:04:13 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/08/10 16:36:20 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/08/10 18:09:31 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,14 @@ int	count_space(char *line)
 char	*check_direct(char *line)
 {
 	char	*new_line;
+//	char	**strs = NULL;
 	int		space;
 
 	space = count_space(line);
 	new_line = check_shift(line, space);
 	new_line = check_pipe(new_line, space);
-	printf("%i\n", space);
+	new_line = check_quotes(new_line);
+//	*strs = *ft_split(new_line, '*');
 	return (new_line);
 }
 
@@ -112,7 +114,6 @@ void	parser(char *input_line)
 	char	*new_line;
 
 	new_line = check_direct(input_line);
-	new_line = check_quotes(new_line);
 	printf ("%s\n", new_line);
 	free (new_line);
 }
