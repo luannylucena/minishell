@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:04:13 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/08/10 15:13:14 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/08/10 16:36:20 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ char	*check_shift(char *line, int space)
 	new_line = (char *)ft_calloc((ft_strlen(line) + space + 1), (sizeof(char)));
 	while (line[i])
 	{
-		if ((line[i + 1] == '<' && line[i] != ' ' && line[i] != '<') ||
-				(line[i] == '<' && line[i + 1] != ' ' && line[i + 1] != '<') ||
-					(line[i + 1] == '>' && line[i] != ' ' && line[i] != '>') ||
-						(line[i] == '>' && line[i + 1] != ' ' && line[i + 1] != '>'))
+		if ((line[i + 1] == '<' && line[i] != ' ' && line[i] != '<')
+			|| (line[i] == '<' && line[i + 1] != ' ' && line[i + 1] != '<')
+			|| (line[i + 1] == '>' && line[i] != ' ' && line[i] != '>')
+			|| (line[i] == '>' && line[i + 1] != ' ' && line[i + 1] != '>'))
 		{
 			new_line[j++] = line[i++];
 			new_line[j++] = ' ';
@@ -60,8 +60,7 @@ char	*check_shift(char *line, int space)
 		else
 			new_line[j++] = line[i++];
 	}
-	new_line[j] = '\0';
-	return (new_l
+	return (new_line);
 }
 
 char	*check_pipe(char *line, int space)
@@ -90,11 +89,30 @@ char	*check_pipe(char *line, int space)
 	return (new_line);
 }
 
+char	*check_quotes(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i] != '\0')
+	{
+		if (line[i] == 34)
+			while (line[++i] != 34 && line[i]);
+		else if (line[i] == 39)
+			while (line[++i] != 39 && line[i]);
+		else if (line[i] == ' ')
+			line[i] = '*';
+		i++;
+	}
+	return (line);
+}
+
 void	parser(char *input_line)
 {
 	char	*new_line;
 
 	new_line = check_direct(input_line);
+	new_line = check_quotes(new_line);
 	printf ("%s\n", new_line);
 	free (new_line);
 }

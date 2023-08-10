@@ -20,6 +20,7 @@ LIBFT = $(PATH_LIBFT)libft.a
 CC = cc
 CFLAGS = -g3 -Wall -Wextra -Werror
 IFLAGS = -I $(PATH_INCL)
+CVALGRIND = valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp
 
 all: $(LIBFT) $(NAME)
 
@@ -36,6 +37,9 @@ $(PATH_OBJS)%.o: %.c
 
 $(PATH_OBJS):
 	mkdir -p $(PATH_OBJS)
+
+run: all 
+	$(CVALGRIND) ./$(NAME)
 
 clean:
 	rm -rf $(PATH_OBJS)

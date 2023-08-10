@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:03:16 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/08/10 15:03:21 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/08/10 16:32:44 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ int		count_space(char *line);
 char	*check_direct(char *line);
 char	*check_pipe(char *line, int space);
 char	*check_shift(char *line, int space);
-// valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
+char	*check_quotes(char *line);
+
 #endif
