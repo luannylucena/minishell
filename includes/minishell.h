@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:03:16 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/08/15 14:40:56 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:14:59 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "../libft_42/libft.h"
 
 void	ctrl_d(char *input_line);
-void	ft_exit(char *input_line);
+int		ft_exit(char **input_line);
 void	sigquit_handler(int signal);
 void	sigint_handler(int signal);
 void	parser(char *input_line);
@@ -34,5 +34,8 @@ char	*check_pipe(char *line, int space);
 char	*check_shift(char *line, int space);
 char	*check_quotes(char *line);
 void	ft_pwd();
-
+void	ft_cd(char **args);
+void	ft_echo(char **args);
+int		ft_exit(char **input_line);
+int		check_builtins(char **tokens);
 #endif

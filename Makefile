@@ -13,7 +13,10 @@ VPATH = $(addprefix $(PATH_SRCS), \
 SRCS = 	main.c \
 		signals.c \
 		parser.c \
-		pwd.c
+		ft_pwd.c \
+		ft_cd.c \
+		ft_echo.c \
+		ft_exit.c
 
 OBJS = $(patsubst %.c, $(PATH_OBJS)%.o, $(SRCS))
 

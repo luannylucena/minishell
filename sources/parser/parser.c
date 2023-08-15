@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:04:13 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/08/15 14:43:24 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:15:30 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,19 @@ char	*check_quotes(char *line)
 	return (line);
 }
 
-void check_builtins(char **tokens)
+int check_builtins(char **tokens)
 {
-	if (ft_strncmp(tokens[0], "pwd", 3))
+	if (ft_strncmp(tokens[0], "pwd", 3) == 0)
 		ft_pwd();
+	else if (ft_strncmp(tokens[0], "cd", 2) == 0)
+		ft_cd(tokens);
+	else if (ft_strncmp(tokens[0], "exit", 4) == 0)
+		ft_exit(tokens);
+	else if (ft_strncmp(tokens[0], "echo", 4) == 0)
+		ft_echo(tokens);
+	else
+		return (1);
+	return (0);
 }
 
 void	parser(char *input_line)
@@ -121,5 +130,6 @@ void	parser(char *input_line)
 	
 	i = 0;
 	tokens = check_direct(input_line);
-	check_builtins(tokens);
+	if (check_builtins(tokens) == 0)
+		printf("is BUILTINS\n");
 }
