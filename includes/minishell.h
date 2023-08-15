@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:03:16 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/08/10 16:54:28 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/08/15 14:40:56 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ void	sigint_handler(int signal);
 void	parser(char *input_line);
 char	*check_space(char *line);
 int		count_space(char *line);
-char	*check_direct(char *line);
+char	**check_direct(char *line);
 char	*check_pipe(char *line, int space);
 char	*check_shift(char *line, int space);
 char	*check_quotes(char *line);
+void	ft_pwd();
 
 #endif

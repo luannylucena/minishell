@@ -7,11 +7,13 @@ PATH_LIBFT = ./libft_42/
 
 VPATH = $(addprefix $(PATH_SRCS), \
 		./ \
-		./parser/)
+		./parser/ \
+		./builtins/)
 
 SRCS = 	main.c \
 		signals.c \
-		parser.c
+		parser.c \
+		pwd.c
 
 OBJS = $(patsubst %.c, $(PATH_OBJS)%.o, $(SRCS))
 

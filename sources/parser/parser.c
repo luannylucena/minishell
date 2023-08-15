@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:04:13 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/08/10 18:09:31 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/08/15 14:43:24 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,18 @@ int	count_space(char *line)
 	return (space);
 }
 
-char	*check_direct(char *line)
+char	**check_direct(char *line)
 {
 	char	*new_line;
-//	char	**strs = NULL;
+	char	**tokens = NULL;
 	int		space;
 
 	space = count_space(line);
 	new_line = check_shift(line, space);
 	new_line = check_pipe(new_line, space);
 	new_line = check_quotes(new_line);
-//	*strs = *ft_split(new_line, '*');
-	return (new_line);
+	tokens = ft_split(new_line, '*');
+	return (tokens);
 }
 
 char	*check_shift(char *line, int space)
@@ -74,7 +74,6 @@ char	*check_pipe(char *line, int space)
 	i = 0;
 	j = 0;
 	new_line = (char *)ft_calloc(ft_strlen(line) + space + 1, sizeof(char));
-	printf ("%s\n", new_line);
 	while (line[i] != '\0')
 	{
 		if (line[i] == '|')
@@ -109,11 +108,18 @@ char	*check_quotes(char *line)
 	return (line);
 }
 
+void check_builtins(char **tokens)
+{
+	if (ft_strncmp(tokens[0], "pwd", 3))
+		ft_pwd();
+}
+
 void	parser(char *input_line)
 {
-	char	*new_line;
-
-	new_line = check_direct(input_line);
-	printf ("%s\n", new_line);
-	free (new_line);
+	char	**tokens;
+	int i;
+	
+	i = 0;
+	tokens = check_direct(input_line);
+	check_builtins(tokens);
 }
