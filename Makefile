@@ -7,12 +7,12 @@ PATH_LIBFT = ./libft_42/
 
 VPATH = $(addprefix $(PATH_SRCS), \
 		./ \
-		./parser/ \
+		./parse/ \
 		./builtins/)
 
 SRCS = 	main.c \
 		signals.c \
-		parser.c \
+		parse.c \
 		ft_pwd.c \
 		ft_cd.c \
 		ft_echo.c \

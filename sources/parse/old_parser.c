@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   old_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:04:13 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/08/15 15:15:30 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/08/28 18:56:37 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	**check_direct(char *line)
 	new_line = check_pipe(new_line, space);
 	new_line = check_quotes(new_line);
 	tokens = ft_split(new_line, '*');
+	free (new_line);
 	return (tokens);
 }
 
@@ -75,7 +76,7 @@ char	*check_pipe(char *line, int space)
 	j = 0;
 	new_line = (char *)ft_calloc(ft_strlen(line) + space + 1, sizeof(char));
 	while (line[i] != '\0')
-	{
+	{m
 		if (line[i] == '|')
 		{
 			new_line[j++] = ' ';
@@ -123,13 +124,19 @@ int check_builtins(char **tokens)
 	return (0);
 }
 
-void	parser(char *input_line)
+void	parser(char *prompt)
 {
-	char	**tokens;
+	char	**parser;
 	int i;
 	
 	i = 0;
-	tokens = check_direct(input_line);
-	if (check_builtins(tokens) == 0)
+	parser = check_direct(prompt);
+	if (check_builtins(prompt) == 0)
 		printf("is BUILTINS\n");
+	while(prompt[i])
+	{
+		printf("entrou");
+		free(prompt[i++]);
+	}
+	free(prompt);
 }

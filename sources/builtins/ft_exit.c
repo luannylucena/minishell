@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 15:08:04 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/08/15 15:11:15 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:40:21 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	ft_exit (char **input_line)
 	}
 
 	int exit_code = atoi(input_line[1]);
+	//colocar um while para dar free em **input_line
 	free(input_line); // Lembre-se de liberar a memória antes de sair
 	exit(exit_code);
 }

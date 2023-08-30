@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:03:16 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/08/15 15:14:59 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/08/30 18:25:59 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,21 @@
 # include <signal.h>
 # include "../libft_42/libft.h"
 
+typedef struct	s_config
+{
+	char	*prompt;
+	char	*parse;
+	char	*state;
+}	t_config;
+
+# define PROMPT 1;
+# define PARSE 2;
+
 void	ctrl_d(char *input_line);
 int		ft_exit(char **input_line);
 void	sigquit_handler(int signal);
 void	sigint_handler(int signal);
-void	parser(char *input_line);
+void	parse(void);
 char	*check_space(char *line);
 int		count_space(char *line);
 char	**check_direct(char *line);
@@ -37,5 +47,7 @@ void	ft_pwd();
 void	ft_cd(char **args);
 void	ft_echo(char **args);
 int		ft_exit(char **input_line);
-int		check_builtins(char **tokens);
+void	prompt(void);
+t_config *get_data(void);
+
 #endif
