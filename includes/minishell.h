@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:03:16 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/09/04 15:44:38 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:04:01 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ typedef struct	s_config
 	int		state;
 }	t_config;
 
+# define EXIT 0
 # define PROMPT 1
 # define PARSE 2
+
 
 void	ctrl_d(char *input_line);
 int		ft_exit(char **input_line);
