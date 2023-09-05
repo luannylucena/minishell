@@ -8,7 +8,9 @@ PATH_LIBFT = ./libft_42/
 VPATH = $(addprefix $(PATH_SRCS), \
 		./ \
 		./parse/ \
-		./builtins/)
+		./builtins/ \
+		./utils/ \
+		./prompt/)
 
 SRCS = 	main.c \
 		signals.c \
@@ -16,7 +18,9 @@ SRCS = 	main.c \
 		ft_pwd.c \
 		ft_cd.c \
 		ft_echo.c \
-		ft_exit.c
+		ft_exit.c \
+		data.c \
+		prompt.c
 
 OBJS = $(patsubst %.c, $(PATH_OBJS)%.o, $(SRCS))
 

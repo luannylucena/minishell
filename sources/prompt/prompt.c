@@ -6,13 +6,13 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:42:54 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/09/04 19:37:09 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:59:45 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*read_line(t_config *data)
+static char	*read_line(t_config *data)
 {
 	char	*str;
 
@@ -24,7 +24,7 @@ char	*read_line(t_config *data)
 	}
 	else
 	{
-		if (*str == "\0")
+		if (*str != '\0')
 		{
 			add_history(str);
 			return(str);
@@ -32,50 +32,66 @@ char	*read_line(t_config *data)
 		else
 			free(str);
 	}
-	return(NULL);
+	return (NULL);
 }
 
-int	check_quotes(t_config * data, char *line)
+int	check_quotes(char *line)
 {
 	int i;
-	int count;
+	int uniquote;
+	int duoquote;
 
 	i = 0;
+	uniquote = 0;
+	duoquote = 0;
 	while (line[i] != '\0')
 	{
 		if (line[i] == 34)
-		{
-			count++;
-			while (line[++i] != 34 && line[i]);
-		}
-		else if (line[i] == 39)
-		{
-			count++;
-			while (line[++i] != 39 && line[i]);
-		}
-		else if (line[i] == ' ')
-			line[i] = '*';
+			duoquote++;
+		if (line[i] == 39)
+			uniquote++;
 		i++;
 	}
-	return(count % 2);
+	return((uniquote % 2) + (duoquote % 2));
+}
+
+int	check_only_space(char *str)
+{
+	if(!str)
+		return (0);	
+	while(*str)
+	{
+		if(*str != ' ')
+			return(1);
+		str++;
+	}
+	return(0);
 }
 
 void	validate_prompt(t_config	*data)
 {
-	if(check_quotes)
+	if(check_quotes(data->prompt))
 	{
 		data->state = EXIT;
-		free(data);
+		printf("aspas abertas");
+		free(data->prompt);
 	}
+	if (check_only_space(data->prompt))
+	{
+		printf("foi pro parse");
+		data->state = PARSE;
+	}
+	if (data->state == PROMPT && data->prompt)
+		free(data->prompt);
+	printf("passou pelo prompt");
 }
 
 void	prompt(void)
 {
 	t_config	*data;
-	char		*str;
-	
+
 	data = get_data();
-	data->prompt = read_line("minishell >");
+	data->prompt = read_line(data);
 	
 	validate_prompt(data);
 	

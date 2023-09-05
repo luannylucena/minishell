@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:47:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/04 16:00:38 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:18:47 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ int	main(int argc, char **argv, char **envp)
 			prompt();
 		if (data->state == PARSE)
 			parse();
-		ctrl_d(data->prompt);
+//		ctrl_d(data->prompt);
 		if (strcmp(data->prompt, "exit") == 0)
 		{
 			printf ("Bye, Bye!\n");
-			free (data->prompt;
+			free (data->prompt);
 			exit (EXIT_SUCCESS);
 		}
 		if (data->prompt)

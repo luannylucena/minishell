@@ -6,12 +6,12 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 18:56:14 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/09/04 19:30:10 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:48:16 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
+/*
 int	count_space(char *line)
 {
 	int	space;
@@ -91,11 +91,12 @@ char	*check_pipe(char *line, int space)
 	return (new_line);
 }
 
-
+*/
 
 void parse(void)
 {
 	t_config	*data;
 
 	data = get_data();
+	printf("entrei no parse");
 }

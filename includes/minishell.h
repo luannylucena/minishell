@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:03:16 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/09/04 19:04:01 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:55:42 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct	s_config
 # define PROMPT 1
 # define PARSE 2
 
-
 void	ctrl_d(char *input_line);
 int		ft_exit(char **input_line);
 void	sigquit_handler(int signal);
@@ -44,12 +43,14 @@ int		count_space(char *line);
 char	**check_direct(char *line);
 char	*check_pipe(char *line, int space);
 char	*check_shift(char *line, int space);
-char	*check_quotes(char *line);
+int		check_quotes(char *line);
 void	ft_pwd();
 void	ft_cd(char **args);
 void	ft_echo(char **args);
 int		ft_exit(char **input_line);
 void	prompt(void);
 t_config *get_data(void);
+void	validate_prompt(t_config	*data);
+int	check_only_space(char *str);
 
 #endif
