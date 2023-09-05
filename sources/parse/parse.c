@@ -6,12 +6,12 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 18:56:14 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/09/05 15:48:16 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/09/05 18:16:55 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-/*
+
 int	count_space(char *line)
 {
 	int	space;
@@ -26,22 +26,17 @@ int	count_space(char *line)
 	return (space);
 }
 
-char	**check_direct(char *line)
+void	check_direct(t_config *data)
 {
-	char	*new_line;
-	char	**tokens = NULL;
-	int		space;
+	int space;
 
-	space = count_space(line);
-	new_line = check_shift(line, space);
-	new_line = check_pipe(new_line, space);
-	new_line = check_quotes(new_line);
-	tokens = ft_split(new_line, '*');
-	free (new_line);
-	return (tokens);
+	space = count_space(data->prompt);
+	check_shift(&data, space);
+	check_pipe(&data);
+	check_space(&data);
 }
 
-char	*check_shift(char *line, int space)
+void	*check_shift(t_config *data, int space)
 {
 	int		i;
 	int		j;
@@ -49,24 +44,25 @@ char	*check_shift(char *line, int space)
 
 	i = 0;
 	j = 0;
-	new_line = (char *)ft_calloc((ft_strlen(line) + space + 1), (sizeof(char)));
-	while (line[i])
+	new_line = (char *)ft_calloc((ft_strlen(data->prompt) + space + 1), (sizeof(char)));
+	while (data->prompt[i])
 	{
-		if ((line[i + 1] == '<' && line[i] != ' ' && line[i] != '<')
-			|| (line[i] == '<' && line[i + 1] != ' ' && line[i + 1] != '<')
-			|| (line[i + 1] == '>' && line[i] != ' ' && line[i] != '>')
-			|| (line[i] == '>' && line[i + 1] != ' ' && line[i + 1] != '>'))
+		if ((data->prompt[i + 1] == '<' && data->prompt[i] != ' ' && data->prompt[i] != '<')
+			|| (data->prompt[i] == '<' && data->prompt[i + 1] != ' ' && data->prompt[i + 1] != '<')
+			|| (data->prompt[i + 1] == '>' && data->prompt[i] != ' ' && data->prompt[i] != '>')
+			|| (data->prompt[i] == '>' && data->prompt[i + 1] != ' ' && data->prompt[i + 1] != '>'))
 		{
-			new_line[j++] = line[i++];
+			new_line[j++] = data->prompt[i++];
 			new_line[j++] = ' ';
 		}
 		else
-			new_line[j++] = line[i++];
+			new_line[j++] = data->prompt[i++];
 	}
-	return (new_line);
+	free(data->prompt);
+	data->prompt = new_line;
 }
 
-char	*check_pipe(char *line, int space)
+void	check_pipe(t_config *data, int space)
 {
 	int		i;
 	int		j;
@@ -74,24 +70,22 @@ char	*check_pipe(char *line, int space)
 
 	i = 0;
 	j = 0;
-	new_line = (char *)ft_calloc(ft_strlen(line) + space + 1, sizeof(char));
-	while (line[i] != '\0')
-	{m
-		if (line[i] == '|')
+	new_line = (char *)ft_calloc(ft_strlen(data->prompt) + space + 1, sizeof(char));
+	while (data->prompt[i] != '\0')
+	{
+		if (data->prompt[i] == '|')
 		{
 			new_line[j++] = ' ';
-			new_line[j++] = line[i++];
+			new_line[j++] = data->prompt[i++];
 			new_line[j++] = ' ';
 		}
 		else
-			new_line[j++] = line[i++];
+			new_line[j++] = data->prompt[i++];
 	}
 	new_line[j] = '\0';
-	free (line);
+	free (data->prompt);
 	return (new_line);
 }
-
-*/
 
 void parse(void)
 {
@@ -99,4 +93,5 @@ void parse(void)
 
 	data = get_data();
 	printf("entrei no parse");
+	check_direct(data);
 }
