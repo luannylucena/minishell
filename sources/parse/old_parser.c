@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:04:13 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/08/28 18:56:37 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/09/06 12:29:46 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,20 +93,7 @@ char	*check_pipe(char *line, int space)
 
 char	*check_quotes(char *line)
 {
-	int i;
 
-	i = 0;
-	while (line[i] != '\0')
-	{
-		if (line[i] == 34)
-			while (line[++i] != 34 && line[i]);
-		else if (line[i] == 39)
-			while (line[++i] != 39 && line[i]);
-		else if (line[i] == ' ')
-			line[i] = '*';
-		i++;
-	}
-	return (line);
 }
 
 int check_builtins(char **tokens)

@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 18:56:14 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/09/05 18:16:55 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/09/06 12:30:15 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	check_direct(t_config *data)
 
 	space = count_space(data->prompt);
 	check_shift(&data, space);
-	check_pipe(&data);
-	check_space(&data);
+	check_pipe(&data, space);
+	create_tokens(&data);
 }
 
-void	*check_shift(t_config *data, int space)
+void	check_shift(t_config *data, int space)
 {
 	int		i;
 	int		j;
@@ -62,6 +62,24 @@ void	*check_shift(t_config *data, int space)
 	data->prompt = new_line;
 }
 
+void	create_tokens(t_config *data)
+{
+	int i;
+
+	i = 0;
+	while (data->prompt[i] != '\0')
+	{
+		if (data->prompt[i] == 34)
+			while (data->prompt[++i] != 34 && data->prompt[i]);
+		else if (data->prompt[i] == 39)
+			while (data->prompt[++i] != 39 && data->prompt[i]);
+		else if (data->prompt[i] == ' ')
+			data->prompt[i] = '*';
+		i++;
+	}
+	return (data->prompt);
+}
+
 void	check_pipe(t_config *data, int space)
 {
 	int		i;
@@ -84,7 +102,7 @@ void	check_pipe(t_config *data, int space)
 	}
 	new_line[j] = '\0';
 	free (data->prompt);
-	return (new_line);
+	data->prompt = new_line;
 }
 
 void parse(void)
