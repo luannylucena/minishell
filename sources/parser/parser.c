@@ -1,6 +1,8 @@
 
 #include "../../includes/minishell.h"
 
+// conta o número de espaços adicionais que serão 
+//necessários para inserir entre os caracteres especiais <, >, e | em uma linha.
 int	count_space(char *line)
 {
 	int	space;
@@ -15,21 +17,23 @@ int	count_space(char *line)
 	return (space);
 }
 
+// realiza verificações e formatações específicas na string data->prompt, 
+// que contém um comando do shell.
 void	check_direct(t_minishell *data)
 {
 	int space;
 
 	space = count_space(data->prompt);
-	check_shift(&data, space);
-	check_pipe(&data, space);
-	create_tokens(&data);
+	check_shift(data, space);
+	check_pipe(data, space);
+	create_tokens(data);
 }
 
 void	check_shift(t_minishell *data, int space)
 {
 	int		i;
 	int		j;
-	char	*new_line;
+	char	*new_line; //substitui a string original em data->prompt após a formatação.
 
 	i = 0;
 	j = 0;
@@ -51,6 +55,8 @@ void	check_shift(t_minishell *data, int space)
 	data->prompt = new_line;
 }
 
+// Se encontra aspas duplas (") ou simples ('), pula o conteúdo entre as aspas.
+// Substitui espaços em branco por asteriscos (*).
 void	create_tokens(t_minishell *data)
 {
 	int i;
@@ -66,7 +72,7 @@ void	create_tokens(t_minishell *data)
 			data->prompt[i] = '*';
 		i++;
 	}
-	return (data->prompt);
+	//return (data->prompt);
 }
 
 void	check_pipe(t_minishell *data, int space)

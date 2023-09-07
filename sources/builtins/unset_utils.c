@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   unset_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:24:37 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/06 17:32:52 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:13:21 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	if_exist_remove_unset(char *token_i, int j, int length)
 		&& (!g_minishell.envp_copy[j][length]
 		|| g_minishell.envp_copy[j][length] == '='))
 	{
-		remove_env_i(g_minishell.envp_copy, j);
+		remove_var(j);
 		return (1);
 	}
 	return (0);

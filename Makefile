@@ -16,12 +16,19 @@ VPATH = $(addprefix $(PATH_SRCS), \
 SRCS = 	main.c \
 		signals.c \
 		parser.c \
-		ft_pwd.c \
-		ft_cd.c \
-		ft_echo.c \
-		ft_exit.c \
+		pwd.c \
+		cd.c \
+		echo.c \
+		exit.c \
+		env.c \
+		unset.c \
+		unset_utils.c \
+		export.c \
+		export_utils.c \
+		execute_builtin.c \
 		data.c \
-		prompt.c
+		prompt.c \
+		free_minishell.c \
 
 OBJS = $(patsubst %.c, $(PATH_OBJS)%.o, $(SRCS))
 
