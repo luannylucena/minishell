@@ -6,7 +6,7 @@
 /*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:47:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/07 17:16:32 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/07 20:36:39 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int main(int argc, char **argv, char **envp)
     signal(SIGINT, sigint_handler);
     g_minishell.envp_copy = env_duplicate(envp);
     g_minishell.export_list = env_duplicate(envp);
+    g_minishell.envp = envp;
 
     while (1)
     {
@@ -38,17 +39,53 @@ int main(int argc, char **argv, char **envp)
 
         if (token_args[0] != NULL)
         {
+            // Verifica se o comando é um comando built-in e o executa
             if (execute_builtin(token_args))
             {
                 // Se for um comando built-in, continue para a próxima iteração do loop
-                // Não chame free_minishell aqui
                 continue;
             }
+            else
+            {
+                char *command_path = find_command_path(token_args[0]);
+                if(command_path == NULL)
+                {
+                    // Comando não encontrado, lide com isso de acordo
+                }
+                else
+                {
+                    //fork para criar um processo filho
+                    pid_t   child_pid = fork();
+                    if(child_pid == -1)
+                    {
+                        perror("fork");
+                        exit(EXIT_FAILURE);
+                    } 
+                    else if(child_pid == 0)
+                    {
+                        printf("Este é o processo filho (PID: %d)\n", getpid());
+                        //processo filho. Exeute o comando externo usando execve
+                        execve(command_path, token_args, NULL);
 
+                        //se o execve retornar, algo deu errado.
+                        perror("execve"); 
+                        exit(EXIT_FAILURE);
+                    }
+                    else
+                    {
+                        printf("Este é o processo pai (PID: %d), filho criado com PID: %d\n", getpid(), child_pid);
+                        //processo pai
+                        int status;
+                        waitpid(child_pid, &status, 0);// Espere o processo filho terminar
+                        // Lidar com status, se necessário
+                    }
+                    free(command_path);
+                }
+            }
             // Caso contrário, trata o comando como um comando externo e executa
             // ... (lógica para executar comandos externos)
 
-            // libera memória
+            // ... (libera memória, adiciona ao histórico, etc.)
             i = 0;
             while (token_args[i] != NULL)
             {
@@ -56,7 +93,6 @@ int main(int argc, char **argv, char **envp)
                 i++;
             }
             free(token_args);
-            //adiciona ao histórico
             if (input_line)
             {
                 printf("%s\n", input_line);
