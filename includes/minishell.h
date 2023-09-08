@@ -24,10 +24,12 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <stdbool.h>
+# include <sys/wait.h>
 # include "minishell.h"
 # include "../libft/libft.h"
 
 typedef struct s_minishell{
+	char	**envp;
 	char	**envp_copy;
 	char	**export_list;
 	char	**export_copy;
@@ -72,12 +74,6 @@ int		check_var(char **token_args, int i);
 int		is_valid_name(char **token_args, int i);
 void	add_quotes(int i, int j);
 
-
-
-
-
-
-
 //prompt
 void	prompt(void);
 void	validate_prompt(t_minishell	*data);
@@ -101,5 +97,6 @@ void	ctrl_d(char *input_line);
 //utils
 void		free_minishell(void);
 t_minishell	*get_data(void);
+char	*find_command_path(const char *command);
 
 #endif

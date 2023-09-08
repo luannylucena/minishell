@@ -29,6 +29,8 @@ SRCS = 	main.c \
 		data.c \
 		prompt.c \
 		free_minishell.c \
+		expansion.c \
+		command_path.c \
 
 OBJS = $(patsubst %.c, $(PATH_OBJS)%.o, $(SRCS))
 

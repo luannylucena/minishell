@@ -32,7 +32,6 @@ static int	is_varname(char c)
 	return (ft_isalnum(c) || c == '_');
 }
 
-
 char    *find_$_position(char *input_line)
 {
     while(*input_line)
