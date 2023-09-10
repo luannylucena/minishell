@@ -6,7 +6,7 @@
 /*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:18:29 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/06 17:32:26 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:13:27 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,17 @@ char	**env_duplicate(char **envp)
 }
 
 //função para dar free
-void	envp_free(char **envp_copy)
+void envp_free(char ***envp_copy)
 {
-	int	i;
-
-	i = 0;
-	while (envp_copy[i] != NULL)
-	{
-		free(envp_copy[i]);
-		i++;
-	}
-	free(envp_copy);
+    int i = 0;
+    while ((*envp_copy)[i] != NULL)
+    {
+        free((*envp_copy)[i]);
+		(*envp_copy)[i] = NULL;
+        i++;
+    }
+    free(*envp_copy);
+	*envp_copy = NULL;
 }
 
 void	ft_env(void)

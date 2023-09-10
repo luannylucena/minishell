@@ -6,7 +6,7 @@
 /*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:47:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/07 20:36:39 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:34:57 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int main(int argc, char **argv, char **envp)
         input_line = readline("minishell$ ");
         if (input_line == NULL)
             ctrl_d(input_line);
-
+        expand_variables(&input_line); // Expande variáveis antes de verificar o comando
         char **token_args = ft_split(input_line, ' ');
 
         if (token_args[0] != NULL)

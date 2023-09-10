@@ -6,7 +6,7 @@
 /*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:03:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/07 17:09:30 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:16:03 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_cd(char **args);
 void	ft_echo(char **args);
 int		env_count_var(char **envp);
 char	**env_duplicate(char **envp);
-void	envp_free(char **envp_copy);
+void	envp_free(char ***envp_copy);
 int		is_valid_export_format(char *str);
 void	add_export(char *str, char ***envs, int *count);
 void	print_export(char **envs);
@@ -98,5 +98,14 @@ void	ctrl_d(char *input_line);
 void		free_minishell(void);
 t_minishell	*get_data(void);
 char	*find_command_path(const char *command);
+
+//expansion
+char	*var_to_value(char *var_name);
+void	expand_variables(char **input_line);
+void	update_input(char **input_line, char *var_value, char *second_part);
+char    *find_$_position(char *input_line);
+int	is_varname(char c);
+void execute_variable_command(const char *command);
+int is_variable(const char *command);
 
 #endif

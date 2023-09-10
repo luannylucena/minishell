@@ -6,7 +6,7 @@
 /*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:19:52 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/07 16:55:03 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:14:00 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,44 +35,48 @@ int	count_args(char **args)
 // 	write(fd, "\n", 1);
 // }
 
-int	is_number(char *num)
+int is_number(const char *num)
 {
-	int	i;
+    if (num == NULL)
+        return 0;
 
-	i = 0;
-	if (num[i] == '-' || num[i] == '+')
-		i++;
-	while (num[i])
-	{
-		if (num[i] < '0' || num[i] > '9')
-			return (0);
-		i++;
-	}
-	return (1);
+    int i = 0;
+    if (num[i] == '-' || num[i] == '+')
+        i++;
+    while (num[i])
+    {
+        if (num[i] < '0' || num[i] > '9')
+            return 0;
+        i++;
+    }
+    return 1;
 }
 
-int	ft_exit(char **input_line)
+int ft_exit(char **input_line)
 {
-	int	arg_count;
-	int	exit_code;
+    if (input_line == NULL)
+    {
+        fprintf(stderr, "Invalid input\n");
+        return -1;
+    }
 
-	arg_count = count_args(input_line);
-	if (arg_count > 2)
-	{
-		ft_putendl_fd("exit: too many arguments", 2);
-		return (0);
-	}
-	if (arg_count == 1)
-	{
-		ft_putendl_fd("Bye!!!", 1);
-		free_minishell();
-	}
-	if (!is_number(input_line[1]))
-	{
-		ft_putendl_fd("exit: numeric argument required", 2);
-		return (0);
-	}
-	exit_code = ft_atoi(input_line[1]);
-	free(input_line);
-	exit(exit_code);
+    int arg_count = count_args(input_line);
+    if (arg_count > 2)
+    {
+        fprintf(stderr, "exit: too many arguments\n");
+        return -1;
+    }
+    if (arg_count == 1)
+    {
+        fprintf(stdout, "Bye!!!\n");
+        free_minishell(); // Make sure to free any dynamically allocated memory
+    }
+    if (!is_number(input_line[1]))
+    {
+        fprintf(stderr, "exit: numeric argument required\n");
+        return -1;
+    }
+    int exit_code = atoi(input_line[1]);
+    free(input_line);
+    exit(exit_code);
 }

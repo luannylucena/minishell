@@ -6,28 +6,13 @@
 /*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:58:41 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/07 20:12:03 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:58:24 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// int	is_var_name(char **token_args)
-// {
-// 	int	j;
-
-// 	j = 0;
-// 	if (token_args[i][j] != '_' && !ft_isalpha(token_args[i][j]))
-// 		return (0);
-// 	j++;
-// 	while (token_args[i][j] == '_' || ft_isalnum(token_args[i][j]))
-// 		j++;
-// 	if (!token_args[i][j] || token_args[i][j] == '=')
-// 		return (1);
-// 	return (0);
-// }
-
-static int	is_varname(char c)
+int	is_varname(char c)
 {
 	return (ft_isalnum(c) || c == '_');
 }
