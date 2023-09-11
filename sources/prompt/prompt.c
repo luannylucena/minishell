@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static char	*read_line(t_minishell *data)
+static char	*read_line(t_config *data)
 {
 	char	*str;
 
@@ -63,7 +63,7 @@ int	check_only_space(char *str)
 	return(0);
 }
 
-void	validate_prompt(t_minishell	*data)
+void	validate_prompt(t_config	*data)
 {
 	if(check_quotes(data->prompt))
 	{
@@ -71,19 +71,20 @@ void	validate_prompt(t_minishell	*data)
 		printf("aspas abertas");
 		free(data->prompt);
 	}
+	printf("passou pelo prompt");
 	if (check_only_space(data->prompt))
 	{
 		printf("foi pro parse");
 		data->state = PARSE;
+		printf("INDO PRO PARSE");
 	}
 	if (data->state == PROMPT && data->prompt)
 		free(data->prompt);
-	printf("passou pelo prompt");
 }
 
 void	prompt(void)
 {
-	t_minishell	*data;
+	t_config	*data;
 
 	data = get_data();
 	data->prompt = read_line(data);

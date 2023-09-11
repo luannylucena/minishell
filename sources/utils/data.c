@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   data.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 16:43:20 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/07 16:58:46 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:21:19 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_minishell	*get_data(void)
+t_config	*get_data(void)
 {
-	static t_minishell	data;
+	static t_config	data;
 	
 	return (&data);
 }

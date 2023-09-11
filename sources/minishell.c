@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:47:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/07 17:16:32 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:52:28 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,43 @@
 
 t_minishell g_minishell;
 
+static	void	is_valid(int argc, char **argv)
+{
+	(void)argv;
+	if (argc != 1)
+		return (exit(1));
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_config	*data;	
+
+	is_valid(argc, argv);
+	data = get_data();
+	data->state = INIT;
+	while (1)
+	{
+		if (data->state == INIT)
+			init(envp);
+		if (data->state == PROMPT)
+			prompt();
+		if (data->state == PARSE)
+			parser();
+        if (data->state == EXIT)
+            printf("Cabô\n");
+		//if (data->state == EXECUTE)
+			//execute();
+		//if (data->state == EXIT)
+			//exit_program();
+        free_minishell(); 
+	}
+	return (0);
+}
+
+/*
+
 int main(int argc, char **argv, char **envp)
 {
-    char *input_line;
-    int i;
-
-    signal(SIGQUIT, sigquit_handler);
-    signal(SIGINT, sigint_handler);
-    g_minishell.envp_copy = env_duplicate(envp);
-    g_minishell.export_list = env_duplicate(envp);
 
     while (1)
     {
@@ -30,9 +58,7 @@ int main(int argc, char **argv, char **envp)
         (void)envp;
         if (argc != 1)
             return (1);
-        input_line = readline("minishell$ ");
-        if (input_line == NULL)
-            ctrl_d(input_line);
+
 
         char **token_args = ft_split(input_line, ' ');
 
@@ -70,3 +96,4 @@ int main(int argc, char **argv, char **envp)
     free_minishell();
     return (0);
 }
+*/

@@ -19,17 +19,19 @@ int	count_space(char *line)
 
 // realiza verificações e formatações específicas na string data->prompt, 
 // que contém um comando do shell.
-void	check_direct(t_minishell *data)
+void	check_direct(t_config *data)
 {
 	int space;
 
 	space = count_space(data->prompt);
 	check_shift(data, space);
 	check_pipe(data, space);
-	create_tokens(data);
+	data->prompt = EXIT;
+	printf("%s\n", data->prompt);
+	//create_tokens(data);
 }
 
-void	check_shift(t_minishell *data, int space)
+void	check_shift(t_config *data, int space)
 {
 	int		i;
 	int		j;
@@ -57,7 +59,7 @@ void	check_shift(t_minishell *data, int space)
 
 // Se encontra aspas duplas (") ou simples ('), pula o conteúdo entre as aspas.
 // Substitui espaços em branco por asteriscos (*).
-void	create_tokens(t_minishell *data)
+void	create_tokens(t_config *data)
 {
 	int i;
 
@@ -75,7 +77,7 @@ void	create_tokens(t_minishell *data)
 	//return (data->prompt);
 }
 
-void	check_pipe(t_minishell *data, int space)
+void	check_pipe(t_config *data, int space)
 {
 	int		i;
 	int		j;
@@ -102,9 +104,9 @@ void	check_pipe(t_minishell *data, int space)
 
 void parser(void)
 {
-	t_minishell	*data;
+	t_config	*data;
 
 	data = get_data();
-	printf("entrei no parse");
+	printf("entrei no parse\n");
 	check_direct(data);
 }

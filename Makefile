@@ -7,13 +7,15 @@ PATH_LIBFT = ./libft/
 
 VPATH = $(addprefix $(PATH_SRCS), \
 		./ \
+		./init/ \
 		./sources/ \
 		./parser/ \
 		./builtins/ \
 		./utils/ \
 		./prompt/)
 
-SRCS = 	main.c \
+SRCS = 	minishell.c \
+		init.c \
 		signals.c \
 		parser.c \
 		pwd.c \
@@ -59,6 +61,9 @@ valgrind:
 	valgrind --trace-children=yes --track-fds=yes --track-origins=yes \
 	--suppressions=readline.supp --leak-check=full \
 	--show-leak-kinds=all --quiet ./minishell
+
+run: all 
+	$(CVALGRIND) ./$(NAME)
 
 clean:
 	rm -rf $(PATH_OBJS)

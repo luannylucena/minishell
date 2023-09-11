@@ -3,18 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:03:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/07 17:09:30 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:42:05 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
 # define EXIT 0
-# define PROMPT 1
-# define PARSE 2
+# define INIT 1
+# define PROMPT 2
+# define PARSE 3
+# define EXECUTE 4
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -27,14 +30,19 @@
 # include "minishell.h"
 # include "../libft/libft.h"
 
+typedef struct	s_config
+{
+	char	*prompt;
+	char	*parse;
+	int		state;
+}	t_config;
+
 typedef struct s_minishell{
 	char	**envp_copy;
 	char	**export_list;
 	char	**export_copy;
 	int		exit_status;
-    char	*prompt;
-	char	*parse;
-	int		state;
+
 }	t_minishell;
 
 extern t_minishell g_minishell;
@@ -72,25 +80,22 @@ int		check_var(char **token_args, int i);
 int		is_valid_name(char **token_args, int i);
 void	add_quotes(int i, int j);
 
-
-
-
-
-
+//init
+void	init(char **envp);
 
 //prompt
 void	prompt(void);
-void	validate_prompt(t_minishell	*data);
+void	validate_prompt(t_config	*data);
 int		check_quotes(char *line);
-//static char	*read_line(t_minishell *data);
+//static char	*read_line(t_config *data);
 
 //parser
 void	parser(void);
 int		count_space(char *line);
-void	check_direct(t_minishell *data);
-void	check_shift(t_minishell *data, int space);
-void	create_tokens(t_minishell *data);
-void	check_pipe(t_minishell *data, int space);
+void	check_direct(t_config *data);
+void	check_shift(t_config *data, int space);
+void	create_tokens(t_config *data);
+void	check_pipe(t_config *data, int space);
 void	parser(void);
 
 //signals
@@ -100,6 +105,6 @@ void	ctrl_d(char *input_line);
 
 //utils
 void		free_minishell(void);
-t_minishell	*get_data(void);
+t_config	*get_data(void);
 
 #endif
