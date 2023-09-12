@@ -4,7 +4,7 @@ static char	*read_line(t_config *data)
 {
 	char	*str;
 
-	str = readline("Minishell$");
+	str = readline("minishell$");
 	// Se a função readline() retornar NULL, isso significa 
 	// que a entrada foi encerrada (por exemplo, quando o usuário pressiona Ctrl+D), e o 
 	// estado EXIT é definido em data, e a função retorna NULL.

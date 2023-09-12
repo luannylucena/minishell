@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:03:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/11 18:42:05 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/09/11 21:43:57 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_cd(char **args);
 void	ft_echo(char **args);
 int		env_count_var(char **envp);
 char	**env_duplicate(char **envp);
-void	envp_free(char **envp_copy);
+void	envp_free(char ***envp_copy);
 int		is_valid_export_format(char *str);
 void	add_export(char *str, char ***envs, int *count);
 void	print_export(char **envs);

@@ -26,6 +26,7 @@ void	check_direct(t_config *data)
 	space = count_space(data->prompt);
 	check_shift(data, space);
 	check_pipe(data, space);
+	free(data->prompt);
 	data->prompt = EXIT;
 	printf("%s\n", data->prompt);
 	//create_tokens(data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:37:50 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/09/11 19:05:13 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/09/11 21:18:57 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int ft_tab_len(char **tab) {
 
 void	init(char **envp)
 {
-	t_minishell	g_minishell;
+	//t_minishell	g_minishell;
 	t_config	*data;
 //	char		*pwd;
 	

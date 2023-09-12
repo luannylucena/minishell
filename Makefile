@@ -57,13 +57,14 @@ $(PATH_OBJS)%.o: %.c
 $(PATH_OBJS):
 	mkdir -p $(PATH_OBJS)
 
-valgrind:
-	valgrind --trace-children=yes --track-fds=yes --track-origins=yes \
-	--suppressions=readline.supp --leak-check=full \
-	--show-leak-kinds=all --quiet ./minishell
-
 run: all 
 	$(CVALGRIND) ./$(NAME)
+
+valgrind: all
+	@valgrind -q --leak-check=full --show-leak-kinds=all --trace-children=yes \
+	--suppressions=ignorelibs.txt --track-fds=yes --track-origins=yes \
+	--trace-children-skip='*/bin/*,*/sbin/*' \
+	./minishell
 
 clean:
 	rm -rf $(PATH_OBJS)

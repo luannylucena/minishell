@@ -6,7 +6,7 @@
 /*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:20:09 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/06 17:20:18 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/11 21:43:47 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	refresh_env(char **token_args, int j)
 		return ;
 	}
 	new_envp = add_var_to_env(g_minishell.envp_copy, token_args[j]);
-	envp_free(g_minishell.envp_copy);
+	envp_free(&g_minishell.envp_copy);
 	g_minishell.envp_copy = new_envp;
 }
 
