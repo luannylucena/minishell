@@ -6,7 +6,7 @@
 /*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:47:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/11 21:02:23 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/12 19:32:11 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,17 @@ int	main(int argc, char **argv, char **envp)
 			init(envp);
 		if (data->state == PROMPT)
 			prompt();
-		if (data->state == PARSE)
+		if (data->state == PARSER)
 			parser();
+		// if (data->state == BUILTINS)
+		// 	execute_builtin();
         if (data->state == EXIT)
             printf("Cabô\n");
 		//if (data->state == EXECUTE)
 			//execute();
 		//if (data->state == EXIT)
-			//exit_program();
-        free_minishell(); 
+			//exit_program(0);
 	}
+    free_minishell(); //coloquei fora para evitar vazamentos, pois estava dando free mais de uma vez. 
 	return (0);
 }

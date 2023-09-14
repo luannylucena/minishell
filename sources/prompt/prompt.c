@@ -4,7 +4,7 @@ static char	*read_line(t_config *data)
 {
 	char	*str;
 
-	str = readline("minishell$");
+	str = readline("minishell$ ");
 	// Se a função readline() retornar NULL, isso significa 
 	// que a entrada foi encerrada (por exemplo, quando o usuário pressiona Ctrl+D), e o 
 	// estado EXIT é definido em data, e a função retorna NULL.
@@ -68,15 +68,16 @@ void	validate_prompt(t_config	*data)
 	if(check_quotes(data->prompt))
 	{
 		data->state = EXIT;
-		printf("aspas abertas");
+		//printf("aspas abertas");
 		free(data->prompt);
+		data->prompt = NULL;
 	}
 	printf("passou pelo prompt");
 	if (check_only_space(data->prompt))
 	{
-		printf("foi pro parse");
-		data->state = PARSE;
-		printf("INDO PRO PARSE");
+		//printf("foi pro parser");
+		data->state = PARSER;
+		//printf("INDO PRO PARSEr");
 	}
 	if (data->state == PROMPT && data->prompt)
 		free(data->prompt);
@@ -89,4 +90,5 @@ void	prompt(void)
 	data = get_data();
 	data->prompt = read_line(data);
 	validate_prompt(data);
+	//printf("%s\n", data->prompt);
 }

@@ -6,13 +6,19 @@
 int	count_space(char *line)
 {
 	int	space;
+	int	i;
+	int	len;
 
+	i = 0;
 	space = 0;
-	while (*line)
+	if(line == NULL)
+		return (-1);
+	len = ft_strlen(line);
+	while (line[i] && i < len)
 	{
-		if (*line == '<' || *line == '>' || *line == '|')
+		if (line[i] == '<' || line[i] == '>' || line[i] == '|')
 			space += 2;
-		line++;
+		i++;
 	}
 	return (space);
 }
@@ -26,8 +32,9 @@ void	check_direct(t_config *data)
 	space = count_space(data->prompt);
 	check_shift(data, space);
 	check_pipe(data, space);
-	free(data->prompt);
-	data->prompt = EXIT;
+	//free(data->prompt);
+	//data->prompt = NULL;
+	
 	printf("%s\n", data->prompt);
 	//create_tokens(data);
 }
@@ -40,7 +47,18 @@ void	check_shift(t_config *data, int space)
 
 	i = 0;
 	j = 0;
+	if (data->prompt == NULL)
+    {
+        printf("Erro: data->prompt é NULL em check_shift\n");
+        return ;
+    }
 	new_line = (char *)ft_calloc((ft_strlen(data->prompt) + space + 1), (sizeof(char)));
+	if (new_line == NULL)
+    {
+        // Lidar com o erro de alocação de memória, se necessário
+        printf("Erro de alocação de memória em check_shift\n");
+        return;
+    }
 	while (data->prompt[i])
 	{
 		if ((data->prompt[i + 1] == '<' && data->prompt[i] != ' ' && data->prompt[i] != '<')
@@ -86,6 +104,8 @@ void	check_pipe(t_config *data, int space)
 
 	i = 0;
 	j = 0;
+	//printf("dataprompt: %s\n", data->prompt);
+	//printf("%zu", ft_strlen(data->prompt));
 	new_line = (char *)ft_calloc(ft_strlen(data->prompt) + space + 1, sizeof(char));
 	while (data->prompt[i] != '\0')
 	{
@@ -108,6 +128,7 @@ void parser(void)
 	t_config	*data;
 
 	data = get_data();
-	printf("entrei no parse\n");
+	//printf("entrei no parser\n");
 	check_direct(data);
+	data->state = PROMPT;
 }

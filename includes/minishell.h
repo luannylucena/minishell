@@ -6,7 +6,7 @@
 /*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:03:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/11 21:43:57 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:28:30 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 # define EXIT 0
 # define INIT 1
 # define PROMPT 2
-# define PARSE 3
+# define PARSER 3
 # define EXECUTE 4
+# define BUILTINS 5
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -33,7 +34,7 @@
 typedef struct	s_config
 {
 	char	*prompt;
-	char	*parse;
+	char	*parser;
 	int		state;
 }	t_config;
 
@@ -42,7 +43,7 @@ typedef struct s_minishell{
 	char	**export_list;
 	char	**export_copy;
 	int		exit_status;
-
+	int		execute_builtin;
 }	t_minishell;
 
 extern t_minishell g_minishell;
@@ -79,6 +80,7 @@ int		check_and_update_var(char *token_args, int len);
 int		check_var(char **token_args, int i);
 int		is_valid_name(char **token_args, int i);
 void	add_quotes(int i, int j);
+int		execute_builtin(char **args);
 
 //init
 void	init(char **envp);
@@ -96,7 +98,6 @@ void	check_direct(t_config *data);
 void	check_shift(t_config *data, int space);
 void	create_tokens(t_config *data);
 void	check_pipe(t_config *data, int space);
-void	parser(void);
 
 //signals
 void	sigquit_handler(int signal);
