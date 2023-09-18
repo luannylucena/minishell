@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:03:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/12 18:28:30 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:59:25 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ typedef struct	s_config
 	int		state;
 }	t_config;
 
-typedef struct s_minishell{
+typedef struct s_minishell
+{
 	char	**envp_copy;
 	char	**export_list;
 	char	**export_copy;
@@ -46,9 +47,15 @@ typedef struct s_minishell{
 	int		execute_builtin;
 }	t_minishell;
 
-extern t_minishell g_minishell;
+
+typedef struct	s_tokens
+{
+	char	*token;
+	struct s_tokens *next;
+} t_tokens;
 
 //main
+extern t_minishell	g_minishell;
 
 //builtins
 void	ft_pwd(void);
@@ -96,7 +103,7 @@ void	parser(void);
 int		count_space(char *line);
 void	check_direct(t_config *data);
 void	check_shift(t_config *data, int space);
-void	create_tokens(t_config *data);
+void	create_space(t_config *data);
 void	check_pipe(t_config *data, int space);
 
 //signals

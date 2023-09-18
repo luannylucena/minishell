@@ -78,7 +78,7 @@ void	check_shift(t_config *data, int space)
 
 // Se encontra aspas duplas (") ou simples ('), pula o conteúdo entre as aspas.
 // Substitui espaços em branco por asteriscos (*).
-void	create_tokens(t_config *data)
+void	create_space(t_config *data)
 {
 	int i;
 
@@ -126,9 +126,14 @@ void	check_pipe(t_config *data, int space)
 void parser(void)
 {
 	t_config	*data;
+	t_tokens	*token;
+	char		**tokens;
+
 
 	data = get_data();
 	//printf("entrei no parser\n");
 	check_direct(data);
+	tokens = ft_split(data->prompt, '*');
+	create_tokens(token, tokens);
 	data->state = PROMPT;
 }
