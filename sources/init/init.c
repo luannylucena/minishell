@@ -6,7 +6,7 @@
 /*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:37:50 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/09/11 21:18:57 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:43:23 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init(char **envp)
 	signal(SIGINT, sigint_handler);
 	g_minishell.envp_copy = env_duplicate(envp);
 	g_minishell.export_list = env_duplicate(envp);
-	data->state = PROMPT;
+	data->state = INPUT;
 	int i = -1;
 	while (++i < ft_tab_len(g_minishell.envp_copy))
 	{
