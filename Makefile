@@ -29,7 +29,7 @@ SRCS = 	minishell.c \
 		export_utils.c \
 		execute_builtin.c \
 		data.c \
-		prompt.c \
+		input.c \
 		free_minishell.c \
 
 OBJS = $(patsubst %.c, $(PATH_OBJS)%.o, $(SRCS))

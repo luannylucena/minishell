@@ -29,13 +29,13 @@ void	check_direct(t_config *data)
 {
 	int space;
 
-	space = count_space(data->prompt);
+	space = count_space(data->input);
 	check_shift(data, space);
 	check_pipe(data, space);
-	//free(data->prompt);
-	//data->prompt = NULL;
+	//free(data->input);
+	//data->input = NULL;
 	
-	printf("%s\n", data->prompt);
+	printf("%s\n", data->input);
 	//create_tokens(data);
 }
 
@@ -43,37 +43,37 @@ void	check_shift(t_config *data, int space)
 {
 	int		i;
 	int		j;
-	char	*new_line; //substitui a string original em data->prompt após a formatação.
+	char	*new_line; //substitui a string original em data->input após a formatação.
 
 	i = 0;
 	j = 0;
-	if (data->prompt == NULL)
+	if (data->input == NULL)
     {
-        printf("Erro: data->prompt é NULL em check_shift\n");
+        printf("Erro: data->input é NULL em check_shift\n");
         return ;
     }
-	new_line = (char *)ft_calloc((ft_strlen(data->prompt) + space + 1), (sizeof(char)));
+	new_line = (char *)ft_calloc((ft_strlen(data->input) + space + 1), (sizeof(char)));
 	if (new_line == NULL)
     {
         // Lidar com o erro de alocação de memória, se necessário
         printf("Erro de alocação de memória em check_shift\n");
         return;
     }
-	while (data->prompt[i])
+	while (data->input[i])
 	{
-		if ((data->prompt[i + 1] == '<' && data->prompt[i] != ' ' && data->prompt[i] != '<')
-			|| (data->prompt[i] == '<' && data->prompt[i + 1] != ' ' && data->prompt[i + 1] != '<')
-			|| (data->prompt[i + 1] == '>' && data->prompt[i] != ' ' && data->prompt[i] != '>')
-			|| (data->prompt[i] == '>' && data->prompt[i + 1] != ' ' && data->prompt[i + 1] != '>'))
+		if ((data->input[i + 1] == '<' && data->input[i] != ' ' && data->input[i] != '<')
+			|| (data->input[i] == '<' && data->input[i + 1] != ' ' && data->input[i + 1] != '<')
+			|| (data->input[i + 1] == '>' && data->input[i] != ' ' && data->input[i] != '>')
+			|| (data->input[i] == '>' && data->input[i + 1] != ' ' && data->input[i + 1] != '>'))
 		{
-			new_line[j++] = data->prompt[i++];
+			new_line[j++] = data->input[i++];
 			new_line[j++] = ' ';
 		}
 		else
-			new_line[j++] = data->prompt[i++];
+			new_line[j++] = data->input[i++];
 	}
-	free(data->prompt);
-	data->prompt = new_line;
+	free(data->input);
+	data->input = new_line;
 }
 
 // Se encontra aspas duplas (") ou simples ('), pula o conteúdo entre as aspas.
@@ -83,17 +83,17 @@ void	create_tokens(t_config *data)
 	int i;
 
 	i = 0;
-	while (data->prompt[i] != '\0')
+	while (data->input[i] != '\0')
 	{
-		if (data->prompt[i] == 34)
-			while (data->prompt[++i] != 34 && data->prompt[i]);
-		else if (data->prompt[i] == 39)
-			while (data->prompt[++i] != 39 && data->prompt[i]);
-		else if (data->prompt[i] == ' ')
-			data->prompt[i] = '*';
+		if (data->input[i] == 34)
+			while (data->input[++i] != 34 && data->input[i]);
+		else if (data->input[i] == 39)
+			while (data->input[++i] != 39 && data->input[i]);
+		else if (data->input[i] == ' ')
+			data->input[i] = '*';
 		i++;
 	}
-	//return (data->prompt);
+	//return (data->input);
 }
 
 void	check_pipe(t_config *data, int space)
@@ -104,23 +104,23 @@ void	check_pipe(t_config *data, int space)
 
 	i = 0;
 	j = 0;
-	//printf("dataprompt: %s\n", data->prompt);
-	//printf("%zu", ft_strlen(data->prompt));
-	new_line = (char *)ft_calloc(ft_strlen(data->prompt) + space + 1, sizeof(char));
-	while (data->prompt[i] != '\0')
+	//printf("datainput: %s\n", data->input);
+	//printf("%zu", ft_strlen(data->input));
+	new_line = (char *)ft_calloc(ft_strlen(data->input) + space + 1, sizeof(char));
+	while (data->input[i] != '\0')
 	{
-		if (data->prompt[i] == '|')
+		if (data->input[i] == '|')
 		{
 			new_line[j++] = ' ';
-			new_line[j++] = data->prompt[i++];
+			new_line[j++] = data->input[i++];
 			new_line[j++] = ' ';
 		}
 		else
-			new_line[j++] = data->prompt[i++];
+			new_line[j++] = data->input[i++];
 	}
 	new_line[j] = '\0';
-	free (data->prompt);
-	data->prompt = new_line;
+	free (data->input);
+	data->input = new_line;
 }
 
 void parser(void)
@@ -130,5 +130,5 @@ void parser(void)
 	data = get_data();
 	//printf("entrei no parser\n");
 	check_direct(data);
-	data->state = PROMPT;
+	data->state = INPUT;
 }

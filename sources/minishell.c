@@ -6,7 +6,7 @@
 /*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:47:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/12 19:32:11 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:30:56 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (data->state == INIT)
 			init(envp);
-		if (data->state == PROMPT)
-			prompt();
+		if (data->state == INPUT) //era o prompt
+			input();
 		if (data->state == PARSER)
 			parser();
 		// if (data->state == BUILTINS)

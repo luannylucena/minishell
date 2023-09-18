@@ -63,32 +63,32 @@ int	check_only_space(char *str)
 	return(0);
 }
 
-void	validate_prompt(t_config	*data)
+void	validate_input(t_config	*data)
 {
-	if(check_quotes(data->prompt))
+	if(check_quotes(data->input))
 	{
 		data->state = EXIT;
 		//printf("aspas abertas");
-		free(data->prompt);
-		data->prompt = NULL;
+		free(data->input);
+		data->input = NULL;
 	}
-	printf("passou pelo prompt");
-	if (check_only_space(data->prompt))
+	printf("passou pelo input");
+	if (check_only_space(data->input))
 	{
 		//printf("foi pro parser");
 		data->state = PARSER;
 		//printf("INDO PRO PARSEr");
 	}
-	if (data->state == PROMPT && data->prompt)
-		free(data->prompt);
+	if (data->state == INPUT && data->input)
+		free(data->input);
 }
 
-void	prompt(void)
+void	input(void)
 {
 	t_config	*data;
 
 	data = get_data();
-	data->prompt = read_line(data);
-	validate_prompt(data);
+	data->input = read_line(data);
+	validate_input(data);
 	//printf("%s\n", data->prompt);
 }

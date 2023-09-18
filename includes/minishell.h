@@ -6,7 +6,7 @@
 /*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:03:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/12 18:28:30 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:31:11 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define EXIT 0
 # define INIT 1
-# define PROMPT 2
+# define INPUT 2
 # define PARSER 3
 # define EXECUTE 4
 # define BUILTINS 5
@@ -33,7 +33,7 @@
 
 typedef struct	s_config
 {
-	char	*prompt;
+	char	*input;
 	char	*parser;
 	int		state;
 }	t_config;
@@ -86,8 +86,8 @@ int		execute_builtin(char **args);
 void	init(char **envp);
 
 //prompt
-void	prompt(void);
-void	validate_prompt(t_config	*data);
+void	input(void);
+void	validate_input(t_config	*data);
 int		check_quotes(char *line);
 //static char	*read_line(t_config *data);
 
