@@ -6,13 +6,16 @@
 /*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:47:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/18 17:30:56 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/18 20:15:27 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 t_minishell g_minishell;
+
+void	mark_dollar(char **input_line);
+void	mark_tilde(char **input_line);
 
 static	void	is_valid(int argc, char **argv)
 {
@@ -33,7 +36,10 @@ int	main(int argc, char **argv, char **envp)
 		if (data->state == INIT)
 			init(envp);
 		if (data->state == INPUT) //era o prompt
+		{
 			input();
+			mark_special_characters(g_minishell.input_line);
+		}
 		if (data->state == PARSER)
 			parser();
 		// if (data->state == BUILTINS)

@@ -1,5 +1,5 @@
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 // conta o número de espaços adicionais que serão 
 //necessários para inserir entre os caracteres especiais <, >, e | em uma linha.

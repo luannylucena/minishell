@@ -6,19 +6,12 @@
 /*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:03:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/18 17:31:11 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/18 20:14:52 by lmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-# define EXIT 0
-# define INIT 1
-# define INPUT 2
-# define PARSER 3
-# define EXECUTE 4
-# define BUILTINS 5
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -30,6 +23,21 @@
 # include <stdbool.h>
 # include "minishell.h"
 # include "../libft/libft.h"
+
+# define EXIT 0
+# define INIT 1
+# define INPUT 2
+# define PARSER 3
+# define EXECUTE 4
+# define BUILTINS 5
+
+# define DOLLAR -1
+# define PIPE_SPACE -2
+# define TILDE -3
+ 
+
+
+
 
 typedef struct	s_config
 {
@@ -44,6 +52,7 @@ typedef struct s_minishell{
 	char	**export_copy;
 	int		exit_status;
 	int		execute_builtin;
+	char	**input_line;
 }	t_minishell;
 
 extern t_minishell g_minishell;
@@ -85,11 +94,14 @@ int		execute_builtin(char **args);
 //init
 void	init(char **envp);
 
-//prompt
+// input
 void	input(void);
 void	validate_input(t_config	*data);
 int		check_quotes(char *line);
 //static char	*read_line(t_config *data);
+
+// mark
+void mark_special_characters(char **input_line);
 
 //parser
 void	parser(void);

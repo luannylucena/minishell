@@ -31,6 +31,7 @@ SRCS = 	minishell.c \
 		data.c \
 		input.c \
 		free_minishell.c \
+		mark.c \
 
 OBJS = $(patsubst %.c, $(PATH_OBJS)%.o, $(SRCS))
 
