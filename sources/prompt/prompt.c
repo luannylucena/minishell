@@ -1,16 +1,16 @@
 #include "../../includes/minishell.h"
 
-static char	*read_line(t_config *data)
+static char	*read_line(t_config *element)
 {
 	char	*str;
 
 	str = readline("minishell$ ");
 	// Se a função readline() retornar NULL, isso significa 
 	// que a entrada foi encerrada (por exemplo, quando o usuário pressiona Ctrl+D), e o 
-	// estado EXIT é definido em data, e a função retorna NULL.
+	// estado EXIT é definido em element, e a função retorna NULL.
 	if (!str) 
 	{
-		data->state = EXIT;
+		element->state = EXIT;
 		return(NULL);
 	}
 	else
@@ -63,32 +63,32 @@ int	check_only_space(char *str)
 	return(0);
 }
 
-void	validate_prompt(t_config	*data)
+void	validate_prompt(t_config	*element)
 {
-	if(check_quotes(data->prompt))
+	if(check_quotes(element->input))
 	{
-		data->state = EXIT;
+		element->state = EXIT;
 		//printf("aspas abertas");
-		free(data->prompt);
-		data->prompt = NULL;
+		free(element->input);
+		element->input = NULL;
 	}
 	printf("passou pelo prompt");
-	if (check_only_space(data->prompt))
+	if (check_only_space(element->input))
 	{
 		//printf("foi pro parser");
-		data->state = PARSER;
+		element->state = PARSER;
 		//printf("INDO PRO PARSEr");
 	}
-	if (data->state == PROMPT && data->prompt)
-		free(data->prompt);
+	if (element->state == PROMPT && element->input)
+		free(element->input);
 }
 
 void	prompt(void)
 {
-	t_config	*data;
+	t_config	*element;
 
-	data = get_data();
-	data->prompt = read_line(data);
-	validate_prompt(data);
-	//printf("%s\n", data->prompt);
+	element = get_data();
+	element->input = read_line(element);
+	validate_prompt(element);
+	//printf("%s\n", data->input);
 }

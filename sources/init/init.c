@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:37:50 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/09/11 21:18:57 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/20 14:04:42 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ int ft_tab_len(char **tab) {
 void	init(char **envp)
 {
 	//t_minishell	g_minishell;
-	t_config	*data;
+	t_config	*element;
 //	char		*pwd;
 	
-	data = get_data();
+	element = get_data();
 	signal(SIGQUIT, sigquit_handler);
 	signal(SIGINT, sigint_handler);
 	g_minishell.envp_copy = env_duplicate(envp);
 	g_minishell.export_list = env_duplicate(envp);
-	data->state = PROMPT;
+	element->state = PROMPT;
 	int i = -1;
 	while (++i < ft_tab_len(g_minishell.envp_copy))
 	{

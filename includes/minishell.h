@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:03:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/18 18:59:25 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/09/20 14:03:26 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 typedef struct	s_config
 {
-	char	*prompt;
+	char	*input;
 	char	*parser;
 	int		state;
 }	t_config;

@@ -23,80 +23,80 @@ int	count_space(char *line)
 	return (space);
 }
 
-// realiza verificações e formatações específicas na string data->prompt, 
+// realiza verificações e formatações específicas na string data->input, 
 // que contém um comando do shell.
-void	check_direct(t_config *data)
+void	check_direct(t_config *element)
 {
 	int space;
 
-	space = count_space(data->prompt);
-	check_shift(data, space);
-	check_pipe(data, space);
-	//free(data->prompt);
-	//data->prompt = NULL;
+	space = count_space(element->input);
+	check_shift(element, space);
+	check_pipe(element, space);
+	//free(element->input);
+	//element->input = NULL;
 	
-	printf("%s\n", data->prompt);
-	//create_tokens(data);
+	printf("%s\n", element->input);
+	//create_tokens(element);
 }
 
-void	check_shift(t_config *data, int space)
+void	check_shift(t_config *element, int space)
 {
 	int		i;
 	int		j;
-	char	*new_line; //substitui a string original em data->prompt após a formatação.
+	char	*new_line; //substitui a string original em element->input após a formatação.
 
 	i = 0;
 	j = 0;
-	if (data->prompt == NULL)
+	if (element->input == NULL)
     {
-        printf("Erro: data->prompt é NULL em check_shift\n");
+        printf("Erro: element->input é NULL em check_shift\n");
         return ;
     }
-	new_line = (char *)ft_calloc((ft_strlen(data->prompt) + space + 1), (sizeof(char)));
+	new_line = (char *)ft_calloc((ft_strlen(element->input) + space + 1), (sizeof(char)));
 	if (new_line == NULL)
     {
         // Lidar com o erro de alocação de memória, se necessário
         printf("Erro de alocação de memória em check_shift\n");
         return;
     }
-	while (data->prompt[i])
+	while (element->input[i])
 	{
-		if ((data->prompt[i + 1] == '<' && data->prompt[i] != ' ' && data->prompt[i] != '<')
-			|| (data->prompt[i] == '<' && data->prompt[i + 1] != ' ' && data->prompt[i + 1] != '<')
-			|| (data->prompt[i + 1] == '>' && data->prompt[i] != ' ' && data->prompt[i] != '>')
-			|| (data->prompt[i] == '>' && data->prompt[i + 1] != ' ' && data->prompt[i + 1] != '>'))
+		if ((element->input[i + 1] == '<' && element->input[i] != ' ' && element->input[i] != '<')
+			|| (element->input[i] == '<' && element->input[i + 1] != ' ' && element->input[i + 1] != '<')
+			|| (element->input[i + 1] == '>' && element->input[i] != ' ' && element->input[i] != '>')
+			|| (element->input[i] == '>' && element->input[i + 1] != ' ' && element->input[i + 1] != '>'))
 		{
-			new_line[j++] = data->prompt[i++];
+			new_line[j++] = element->input[i++];
 			new_line[j++] = ' ';
 		}
 		else
-			new_line[j++] = data->prompt[i++];
+			new_line[j++] = element->input[i++];
 	}
-	free(data->prompt);
-	data->prompt = new_line;
+	free(element->input);
+	element->input = new_line;
 }
 
 // Se encontra aspas duplas (") ou simples ('), pula o conteúdo entre as aspas.
 // Substitui espaços em branco por asteriscos (*).
-void	create_space(t_config *data)
+void	create_space(t_config *element)
 {
 	int i;
 
 	i = 0;
-	while (data->prompt[i] != '\0')
+	while (element->input[i] != '\0')
 	{
-		if (data->prompt[i] == 34)
-			while (data->prompt[++i] != 34 && data->prompt[i]);
-		else if (data->prompt[i] == 39)
-			while (data->prompt[++i] != 39 && data->prompt[i]);
-		else if (data->prompt[i] == ' ')
-			data->prompt[i] = '*';
+		if (element->input[i] == 34)
+			while (element->input[++i] != 34 && element->input[i]);
+		else if (element->input[i] == 39)
+			while (element->input[++i] != 39 && element->input[i]);
+		else if (element->input[i] == ' ')
+			element->input[i] = '*';
 		i++;
 	}
-	//return (data->prompt);
+	//return (element->input);
 }
 
-void	check_pipe(t_config *data, int space)
+void	check_pipe(t_config *element, int space)
 {
 	int		i;
 	int		j;
@@ -104,36 +104,36 @@ void	check_pipe(t_config *data, int space)
 
 	i = 0;
 	j = 0;
-	//printf("dataprompt: %s\n", data->prompt);
-	//printf("%zu", ft_strlen(data->prompt));
-	new_line = (char *)ft_calloc(ft_strlen(data->prompt) + space + 1, sizeof(char));
-	while (data->prompt[i] != '\0')
+	//printf("elementprompt: %s\n", element->input);
+	//printf("%zu", ft_strlen(element->input));
+	new_line = (char *)ft_calloc(ft_strlen(element->input) + space + 1, sizeof(char));
+	while (element->input[i] != '\0')
 	{
-		if (data->prompt[i] == '|')
+		if (element->input[i] == '|')
 		{
 			new_line[j++] = ' ';
-			new_line[j++] = data->prompt[i++];
+			new_line[j++] = element->input[i++];
 			new_line[j++] = ' ';
 		}
 		else
-			new_line[j++] = data->prompt[i++];
+			new_line[j++] = element->input[i++];
 	}
 	new_line[j] = '\0';
-	free (data->prompt);
-	data->prompt = new_line;
+	free (element->input);
+	element->input = new_line;
 }
 
 void parser(void)
 {
-	t_config	*data;
+	t_config	*element;
 	t_tokens	*token;
-	char		**tokens;
+	char		**pointer_input;
 
 
-	data = get_data();
+	element = get_data();
 	//printf("entrei no parser\n");
-	check_direct(data);
-	tokens = ft_split(data->prompt, '*');
-	create_tokens(token, tokens);
-	data->state = PROMPT;
+	check_direct(element);
+	pointer_input = ft_split(element->input, '*');
+	create_tokens(token, pointer_input);
+	element->state = PROMPT;
 }
