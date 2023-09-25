@@ -23,21 +23,6 @@ int	count_space(char *line)
 	return (space);
 }
 
-// realiza verificações e formatações específicas na string data->input, 
-// que contém um comando do shell.
-void	check_direct(t_config *element)
-{
-	int space;
-
-	space = count_space(element->input);
-	check_shift(element, space);
-	check_pipe(element, space);
-	//free(element->input);
-	//element->input = NULL;
-	
-	printf("%s\n", element->input);
-	//create_tokens(element);
-}
 
 void	check_shift(t_config *element, int space)
 {
@@ -67,7 +52,7 @@ void	check_shift(t_config *element, int space)
 			|| (element->input[i] == '>' && element->input[i + 1] != ' ' && element->input[i + 1] != '>'))
 		{
 			new_line[j++] = element->input[i++];
-			new_line[j++] = ' ';
+			new_line[j++] = '*';
 		}
 		else
 			new_line[j++] = element->input[i++];
@@ -78,23 +63,6 @@ void	check_shift(t_config *element, int space)
 
 // Se encontra aspas duplas (") ou simples ('), pula o conteúdo entre as aspas.
 // Substitui espaços em branco por asteriscos (*).
-void	create_space(t_config *element)
-{
-	int i;
-
-	i = 0;
-	while (element->input[i] != '\0')
-	{
-		if (element->input[i] == 34)
-			while (element->input[++i] != 34 && element->input[i]);
-		else if (element->input[i] == 39)
-			while (element->input[++i] != 39 && element->input[i]);
-		else if (element->input[i] == ' ')
-			element->input[i] = '*';
-		i++;
-	}
-	//return (element->input);
-}
 
 void	check_pipe(t_config *element, int space)
 {
@@ -111,9 +79,9 @@ void	check_pipe(t_config *element, int space)
 	{
 		if (element->input[i] == '|')
 		{
-			new_line[j++] = ' ';
+			new_line[j++] = '*';
 			new_line[j++] = element->input[i++];
-			new_line[j++] = ' ';
+			new_line[j++] = '*';
 		}
 		else
 			new_line[j++] = element->input[i++];
@@ -122,18 +90,28 @@ void	check_pipe(t_config *element, int space)
 	free (element->input);
 	element->input = new_line;
 }
+// realiza verificações e formatações específicas na string data->input, 
+// que contém um comando do shell.
+void	check_direct(t_config *element)
+{
+	int space;
+
+	space = count_space(element->input);
+	check_shift(element, space);
+	check_pipe(element, space);
+	//free(element->input);
+	//element->input = NULL;
+	printf("%s\n", element->input);
+}
 
 void parser(void)
 {
 	t_config	*element;
-	t_tokens	*token;
-	char		**pointer_input;
-
+	char		**split_input;
 
 	element = get_data();
-	//printf("entrei no parser\n");
 	check_direct(element);
-	pointer_input = ft_split(element->input, '*');
-	create_tokens(token, pointer_input);
-	element->state = PROMPT;
+	split_input = ft_split(element->input, '*');
+	g_minishell.tokens = create_tokens(split_input);
+	element->state = EXECUTE;
 }

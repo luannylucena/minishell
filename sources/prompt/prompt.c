@@ -68,17 +68,13 @@ void	validate_prompt(t_config	*element)
 	if(check_quotes(element->input))
 	{
 		element->state = EXIT;
-		//printf("aspas abertas");
+		printf("aspas abertas");
 		free(element->input);
 		element->input = NULL;
 	}
 	printf("passou pelo prompt");
 	if (check_only_space(element->input))
-	{
-		//printf("foi pro parser");
 		element->state = PARSER;
-		//printf("INDO PRO PARSEr");
-	}
 	if (element->state == PROMPT && element->input)
 		free(element->input);
 }
@@ -90,5 +86,4 @@ void	prompt(void)
 	element = get_data();
 	element->input = read_line(element);
 	validate_prompt(element);
-	//printf("%s\n", data->input);
 }

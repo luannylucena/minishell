@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:03:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/20 14:03:26 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/09/25 18:26:23 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # include <stdbool.h>
 # include "minishell.h"
 # include "../libft/libft.h"
+#include <sys/types.h>
+#include <sys/wait.h>
 
 typedef struct	s_config
 {
@@ -38,6 +40,12 @@ typedef struct	s_config
 	int		state;
 }	t_config;
 
+typedef struct	s_tokens
+{
+	char	**value;
+	struct s_tokens *next;
+} t_tokens;
+
 typedef struct s_minishell
 {
 	char	**envp_copy;
@@ -45,14 +53,9 @@ typedef struct s_minishell
 	char	**export_copy;
 	int		exit_status;
 	int		execute_builtin;
+	t_tokens *tokens;
 }	t_minishell;
 
-
-typedef struct	s_tokens
-{
-	char	*token;
-	struct s_tokens *next;
-} t_tokens;
 
 //main
 extern t_minishell	g_minishell;
@@ -105,6 +108,12 @@ void	check_direct(t_config *data);
 void	check_shift(t_config *data, int space);
 void	create_space(t_config *data);
 void	check_pipe(t_config *data, int space);
+
+//tokens
+t_tokens *create_tokens(char **input);
+
+//execute
+void	execute(char **envp);
 
 //signals
 void	sigquit_handler(int signal);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmedeiro <lmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:47:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/12 19:32:11 by lmedeiro         ###   ########.fr       */
+/*   Updated: 2023/09/25 18:18:15 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	main(int argc, char **argv, char **envp)
 		// 	execute_builtin();
         if (data->state == EXIT)
             printf("Cabô\n");
-		//if (data->state == EXECUTE)
-			//execute();
+		if (data->state == EXECUTE)
+			execute(envp);
 		//if (data->state == EXIT)
 			//exit_program(0);
 	}

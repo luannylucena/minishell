@@ -12,7 +12,8 @@ VPATH = $(addprefix $(PATH_SRCS), \
 		./parser/ \
 		./builtins/ \
 		./utils/ \
-		./prompt/)
+		./prompt/ \
+		./execute)
 
 SRCS = 	minishell.c \
 		init.c \
@@ -31,6 +32,8 @@ SRCS = 	minishell.c \
 		data.c \
 		prompt.c \
 		free_minishell.c \
+		tokens.c \
+		execute.c \
 
 OBJS = $(patsubst %.c, $(PATH_OBJS)%.o, $(SRCS))
 
