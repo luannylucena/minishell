@@ -108,10 +108,12 @@ void parser(void)
 {
 	t_config	*element;
 	char		**split_input;
+	t_tokens	*tokens;
 
 	element = get_data();
 	check_direct(element);
 	split_input = ft_split(element->input, '*');
 	g_minishell.tokens = create_tokens(split_input);
-	element->state = EXECUTE;
+	
+	element->state = PROMPT;
 }

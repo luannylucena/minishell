@@ -6,15 +6,18 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:14:17 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/09/25 18:24:28 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:41:30 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../includes/minishell.h"
 
-void	execute(char **envp)
+
+void	execute(void)
 {
-	t_tokens	*tokens;
+	printf("to no execute");
+	/*t_tokens	*tokens;
 	int			pid;
 	int			status;
 
@@ -25,5 +28,5 @@ void	execute(char **envp)
 	{
 		execve(tokens->value[0], tokens->value, envp);
 	}
-	waitpid(pid, &status, 0);
+	waitpid(pid, &status, 0);*/
 }
