@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:03:34 by lmedeiro          #+#    #+#             */
-/*   Updated: 2023/09/25 18:26:23 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/09/26 15:19:53 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	init(char **envp);
 void	prompt(void);
 void	validate_prompt(t_config	*data);
 int		check_quotes(char *line);
-//static char	*read_line(t_config *data);
+static char	*read_line(t_config *data);
 
 //parser
 void	parser(void);

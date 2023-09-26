@@ -72,7 +72,6 @@ void	validate_prompt(t_config	*element)
 		free(element->input);
 		element->input = NULL;
 	}
-	printf("passou pelo prompt");
 	if (check_only_space(element->input))
 		element->state = PARSER;
 	if (element->state == PROMPT && element->input)
